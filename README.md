@@ -11,3 +11,6 @@
 
 #### Command to deactivate Virtual Environment
 `deactivate`
+
+#### Command to Launch Web App
+`streamlit run app.py`

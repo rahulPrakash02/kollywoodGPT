@@ -1,7 +1,14 @@
 from kollygpt.MovieData import MovieData
 import streamlit as st
+import os
 from kollygpt.GPT2Model import GPT2Model
 from kollygpt.kollyGPTPlots import kollyGPTPlots
+
+model_path = "./gpt2-finetuned"
+
+if not os.path.isdir(model_path):
+    GPT2Model().train_model()
+    GPT2Model().save_model()
 
 st.title("Kollywood Plot Generator")
 

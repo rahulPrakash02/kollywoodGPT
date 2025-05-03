@@ -1,3 +1,4 @@
+#Adjust Data
 import pandas as pd
 
 class MovieData:
@@ -12,18 +13,12 @@ class MovieData:
     def load_leads(self):
         return self.data['Lead'].value_counts().index
     
-    def print_data(self):
-        print(self.data.head())
-    
-    def load_shape(self):
-        return self.data.shape
-    
-    def load_train_texts(self):
-        df = self.data
-        df['prompt'] = "Suggest a plot for " + df['Genre'] + " movie starring " + df['Lead']
-        df['response'] = df['Plot']
-        df["text"] = "Prompt: " + df["prompt"] + " Response: " + df["response"]
-        return df["text"].tolist()
+    def load_genres(self):
+        #function to load genres instead of hardcoding list
+        all_genres_string = ",".join(self.data['Genre'].astype(str))
+        genre_list = all_genres_string.split(',')
+        unique_genres_set = set(genre_list)
+        return list(unique_genres_set)
         
         
 

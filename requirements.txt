@@ -4,4 +4,5 @@ torch
 transformers[torch]
 datasets
 tokenizers
+peft
 streamlit

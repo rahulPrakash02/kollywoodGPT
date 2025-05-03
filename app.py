@@ -1,20 +1,20 @@
 from kollygpt.MovieData import MovieData
 import streamlit as st
 import os
-from kollygpt.GPT2Model import GPT2Model
-from kollygpt.kollyGPTPlots import kollyGPTPlots
+from kollygpt.GPT2Prediction import GPT2Prediction
+from kollygpt.GPT2TrainLora import GPT2TrainLora
+from kollygpt.ModifiedGPT2Model import ModifiedGPT2Model
 
-model_path = "./gpt2-finetuned"
+model_path = "./lora_plot_generator_with_tokens_df"
 
-if not os.path.isdir(model_path):
-    GPT2Model().train_model()
-    GPT2Model().save_model()
+#GPT2TrainLora().trained_model(model_path)
+#ModifiedGPT2Model().save_tokenizer(model_path)
 
 st.title("Kollywood Plot Generator")
 
 lead_choice = st.radio("Select your Lead:", MovieData().load_leads())
 
-genre_choices = st.multiselect("Select your Genres:", ["Action", "Drama", "Romance", "Crime", "Thriller", "Horror", "Cop", "Spy", "Sport", "Comedy"])
+genre_choices = st.multiselect("Select your Genres:", MovieData().load_genres())
 
 if st.button("Generate Plot"):
-    st.write(f"**Plot**\n {kollyGPTPlots().plotter(lead_choice, ', '.join(genre_choices))}")
+    st.write(f"**Plot**\n {GPT2Prediction().generate_plot_dynamic_length_sliced_creative(lead_choice, (', '.join(genre_choices)))}")

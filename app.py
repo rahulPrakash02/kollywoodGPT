@@ -5,6 +5,12 @@ from peft import PeftConfig
 from kollygpt.GPT2TrainLora import GPT2TrainLora
 from kollygpt.ModifiedGPT2Model import ModifiedGPT2Model
 
+model_path = "./lora_plot_generator_with_tokens_df"
+
+if not os.path.isdir(model_path):
+    GPT2TrainLora().trained_model(model_path)
+    ModifiedGPT2Model().save_tokenizer(model_path)
+
 tokenizer, model = ModifiedGPT2Model().ModifiedGPT2()
 peft_config = PeftConfig.from_pretrained("./lora_plot_generator_with_tokens_df")
 bos_token = "<bos>"
@@ -54,11 +60,6 @@ def generate_plot_dynamic_length_sliced_creative(lead, genre, initial_max_length
     # else: keep it as is
 
     return final_plot.strip().replace(bos_token, "")
-
-model_path = "./lora_plot_generator_with_tokens_df"
-
-#GPT2TrainLora().trained_model(model_path)
-#ModifiedGPT2Model().save_tokenizer(model_path)
 
 st.title("Kollywood Plot Generator")
 
